@@ -7,6 +7,7 @@ function CreateComplaints() {
     title: "",
     category: "",
     description: "",
+    evidenceUrl: "",
   });
 
   const handleChange = (e) => {
@@ -38,6 +39,7 @@ function CreateComplaints() {
         title: "",
         category: "",
         description: "",
+        evidenceUrl: "",
       });
 
     } catch (error) {
@@ -123,6 +125,21 @@ function CreateComplaints() {
               onChange={handleChange}
               required
             />
+
+            {/* Evidence */}
+
+            <input
+              type="url"
+              name="evidenceUrl"
+              placeholder="Evidence link (optional) — e.g. photo or document URL"
+              className="form-control mb-1"
+              value={formData.evidenceUrl}
+              onChange={handleChange}
+            />
+            <small className="text-muted d-block mb-3">
+              Upload your photo/document to Google Drive, Imgur, etc. and
+              paste a shareable link here.
+            </small>
 
             <button
               className="btn btn-success w-100"

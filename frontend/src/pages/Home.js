@@ -5,6 +5,17 @@ import Navbar from "../components/Navbar";
 function Home() {
   const [complaints, setComplaints] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [categoryFilter, setCategoryFilter] = useState("All");
+
+  const categories = [
+    "All",
+    "Mess",
+    "Hostel",
+    "WiFi",
+    "Library",
+    "Transport",
+    "Others",
+  ];
 
   useEffect(() => {
     fetchComplaints();
@@ -49,6 +60,13 @@ function Home() {
     }
   };
 
+  const filteredComplaints =
+    categoryFilter === "All"
+      ? complaints
+      : complaints.filter(
+          (complaint) => complaint.category === categoryFilter
+        );
+
   return (
     <>
       <Navbar />
@@ -57,6 +75,21 @@ function Home() {
         <h2 className="mb-4 text-center">
           Campus Issues
         </h2>
+
+        <div className="d-flex justify-content-end mb-3">
+          <select
+            className="form-select"
+            style={{ maxWidth: "220px" }}
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat === "All" ? "All Topics" : cat}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {loading ? (
           <div className="text-center">
@@ -69,12 +102,12 @@ function Home() {
               </span>
             </div>
           </div>
-        ) : complaints.length === 0 ? (
+        ) : filteredComplaints.length === 0 ? (
           <div className="alert alert-info">
-            No complaints found.
+            No complaints found{categoryFilter !== "All" ? ` for "${categoryFilter}"` : ""}.
           </div>
         ) : (
-          complaints.map((complaint) => (
+          filteredComplaints.map((complaint) => (
             <div
               key={complaint._id}
               className="card shadow-sm border-0 mb-4"
@@ -108,6 +141,18 @@ function Home() {
                 <p className="text-muted">
                   {complaint.description}
                 </p>
+
+                {complaint.evidenceUrl && (
+                  <p className="mb-2">
+                    <a
+                      href={complaint.evidenceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📎 View Evidence
+                    </a>
+                  </p>
+                )}
 
                 <div className="d-flex justify-content-between align-items-center">
 

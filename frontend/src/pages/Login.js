@@ -38,7 +38,7 @@ function Login() {
 
       alert("Login Successful");
 
-      navigate("/Home");
+      navigate("/home");
 
     } catch (error) {
       alert(
@@ -79,6 +79,9 @@ function Login() {
         >
           Login
         </button>
+        <p className="text-center mt-3">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </p>
         <p className="text-center mt-3">
         Don't have an account?{" "}
          <Link to="/register">

@@ -12,6 +12,12 @@ const complaintSchema = new mongoose.Schema(
       required: true,
     },
 
+    evidenceUrl: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
     category: {
       type: String,
       enum: [

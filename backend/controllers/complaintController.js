@@ -2,12 +2,13 @@ const Complaint = require("../models/Complaint");
 
 const createComplaint = async (req, res) => {
   try {
-    const { title, description, category } = req.body;
+    const { title, description, category, evidenceUrl } = req.body;
 
     const complaint = await Complaint.create({
       title,
       description,
       category,
+      evidenceUrl: evidenceUrl || "",
       user: req.user.id,
     });
 
@@ -20,7 +21,10 @@ const createComplaint = async (req, res) => {
 };
 const getComplaints = async (req, res) => {
   try {
-    const complaints = await Complaint.find()
+    const { category } = req.query;
+    const filter = category && category !== "All" ? { category } : {};
+
+    const complaints = await Complaint.find(filter)
       .populate("user", "name email")
       .sort({ votes: -1 });
 

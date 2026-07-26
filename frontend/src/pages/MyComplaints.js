@@ -94,6 +94,18 @@ function MyComplaints() {
                   {complaint.description}
                 </p>
 
+                {complaint.evidenceUrl && (
+                  <p className="mb-2">
+                    <a
+                      href={complaint.evidenceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📎 View Evidence
+                    </a>
+                  </p>
+                )}
+
                 <div className="d-flex justify-content-between align-items-center">
 
                   <span className="fw-bold">
